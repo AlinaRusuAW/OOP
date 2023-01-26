@@ -1,17 +1,25 @@
 package model;
 
-import java.util.ArrayList;
-
-public class Employee extends ArrayList<Employee> {
+public class Employee {
     Long id;
     String name;
     String prenume;
+    Long position_id;
     Long salariu;
+
+    public Employee(Long id, String name, String prenume, Long position_id, Long salariu) {
+        this.id = id;
+        this.name = name;
+        this.prenume = prenume;
+        this.position_id = position_id;
+        this.salariu = salariu;
+    }
 
     public Employee() {
         this.id = id;
         this.name = name;
         this.prenume = prenume;
+        this.position_id = position_id;
         this.salariu = salariu;
     }
     public Long getId() {
@@ -32,6 +40,15 @@ public class Employee extends ArrayList<Employee> {
     public void setPrenume(String prenume) {
         this.prenume = prenume;
     }
+
+    public Long getPosition_id() {
+        return position_id;
+    }
+
+    public void setPosition_id(Long position_id) {
+        this.position_id = position_id;
+    }
+
     public Long getSalariu() {
         return salariu;
     }
@@ -40,6 +57,6 @@ public class Employee extends ArrayList<Employee> {
     }
     public String toString(){
         return "Employee: " + this.getId() + " " + this.getName() +
-                " " + this.getPrenume() + " " + this.getSalariu();
+                " " + this.getPrenume() + " " + this.position_id + " " + this.getSalariu();
     }
 }

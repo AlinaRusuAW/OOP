@@ -37,30 +37,47 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Long num, num2;
         System.out.println("Introduceti Id Employee: ");
-        num = scanner.nextLong();
-        /*while (!scanner.hasNextInt()) {
+        while (!scanner.hasNextInt()) {
             System.out.println("Error, introduceti o valoare numerica: ");
             scanner.next();
-        }*/
-          //  if (num == scanner.nextLong()) {
+        }
+        num = scanner.nextLong();
+            if (num <= employee.size()) {
                 System.out.println("Introduceti salariu nou: ");
                 num2 = scanner.nextLong();
+                Long finalNum = num2;
                 List<Employee> newEmployee = employee.stream().
                         filter(e -> e.getId() == num)
                         .map(e ->
-                        {e.setSalariu(num2);
+                        {
+                            e.setSalariu(finalNum);
                             return e;
                         }).collect(Collectors.toList());
                 newEmployee.forEach(System.out::println);
                 System.out.println("Salariu a fost actualizat");
-            //}else System.out.println("Angajat cu asa ID nu exista");
+            } else System.out.println("Angajat cu asa ID nu exista");
     }
         /*Metoda care actualizeaza salariului pentru angajatul Id-ului care il introducem de la tastiera.*/
     private static void sumEmployee(List<Employee> employee) {
         long total = employee.stream().collect(Collectors.summingLong(Employee::getSalariu));
-        System.out.println(total);
+        System.out.println("Suma totala de bani a tuturor angajatilor: " + total);
+        System.out.println("----------calculate-procentage-----------");
+        Scanner scanner = new Scanner(System.in);
+        long num;
+        System.out.println("Introduceti Id-ul angajatului pentru a afla procentul din suma totala: ");
+        num = scanner.nextLong();
+        List<Employee> employeeList = employee.stream().
+                filter(e -> e.getId() == num)
+                .map(e ->
+                {
+                    e.setSalariu(e.getSalariu()*100/total);
+                    return e;
+                }).collect(Collectors.toList());
+        employeeList.forEach(System.out::print);
+        System.out.println(" %");
+
     }
-        /*Metoda care calculeaza salaru total al tuturor angajatilor.*/
+        /*Metoda care calculeaza salaru total al tuturor angajatilor. si procentul angajatului din suma totala.*/
     private static void sortEmployee(List<Employee> employee) {
         Collections.sort(employee, Comparator.comparing(Employee::getName));
         employee.stream().forEach(System.out::println);
@@ -88,7 +105,8 @@ public class Main {
             employee.setId(Long.valueOf(lineSplit[0]));
             employee.setName(lineSplit[1]);
             employee.setPrenume(lineSplit[2]);
-            employee.setSalariu(Long.valueOf(lineSplit[3]));
+            employee.setPosition_id(Long.valueOf(lineSplit[3]));
+            employee.setSalariu(Long.valueOf(lineSplit[4]));
             employeeList.add(employee);
         }
         return employeeList;
